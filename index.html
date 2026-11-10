@@ -1,0 +1,326 @@
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Портфолио AI-навыков Олеси Ивановой — промты, тексты и рабочие AI-шаблоны.">
+  <meta name="theme-color" content="#0b1020">
+  <title>Олеся Иванова — портфолио AI-навыков</title>
+  <style>
+    :root {
+      --bg: #f5f8ff;
+      --surface: rgba(255, 255, 255, .78);
+      --surface-strong: #ffffff;
+      --line: rgba(16, 74, 158, .14);
+      --text: #123f8b;
+      --muted: #5f769d;
+      --violet: #5974e8;
+      --blue: #1768d8;
+      --mint: #00a7a0;
+      --coral: #e66584;
+      --max: 1180px;
+      --radius: 28px;
+      --shadow: 0 28px 80px rgba(34, 86, 164, .16);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 16% 12%, rgba(82, 112, 228, .16), transparent 32rem),
+        radial-gradient(circle at 85% 35%, rgba(0, 167, 160, .11), transparent 28rem),
+        var(--bg);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .24;
+      background-image: linear-gradient(rgba(24, 89, 184, .08) 1px, transparent 1px), linear-gradient(90deg, rgba(24, 89, 184, .08) 1px, transparent 1px);
+      background-size: 52px 52px;
+      mask-image: linear-gradient(to bottom, black, transparent 88%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+    :focus-visible { outline: 3px solid var(--mint); outline-offset: 4px; }
+    .container { width: min(calc(100% - 40px), var(--max)); margin-inline: auto; }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid transparent;
+      transition: background .25s ease, border-color .25s ease, backdrop-filter .25s ease;
+    }
+    .nav.scrolled { background: rgba(248, 251, 255, .82); border-color: var(--line); backdrop-filter: blur(18px); }
+    .nav-inner { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { display: inline-flex; align-items: center; gap: 11px; font-weight: 760; letter-spacing: -.02em; }
+    .brand-mark {
+      width: 34px; height: 34px; display: grid; place-items: center; border-radius: 11px;
+      color: #fff; font-weight: 900; background: linear-gradient(135deg, var(--blue), var(--violet));
+      box-shadow: 0 10px 28px rgba(168, 121, 255, .25);
+    }
+    .nav-links { display: flex; align-items: center; gap: 28px; color: var(--muted); font-size: 14px; font-weight: 600; }
+    .nav-links a { transition: color .2s ease; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero { position: relative; padding: 92px 0 80px; }
+    .hero::after {
+      content: "AI"; position: absolute; right: max(-3vw, -40px); top: 2rem; z-index: -1;
+      font-size: clamp(180px, 28vw, 420px); font-weight: 900; line-height: 1; letter-spacing: -.12em;
+      color: transparent; -webkit-text-stroke: 1px rgba(24, 91, 190, .08); user-select: none;
+    }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 24px; color: #365fa8; font-size: 13px; font-weight: 750; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { content: ""; width: 34px; height: 1px; background: linear-gradient(90deg, var(--mint), transparent); }
+    h1 { margin: 0; max-width: 970px; font-size: clamp(54px, 9vw, 126px); line-height: .89; letter-spacing: -.074em; font-weight: 850; }
+    .gradient-text {
+      display: block;
+      color: rgba(20, 79, 170, .12);
+      background: linear-gradient(100deg, #123f8b 5%, #4d68db 42%, #1674dc 70%, #00a7a0 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 12px 38px rgba(117, 102, 255, .18));
+    }
+    .hero-bottom { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(280px, .65fr); gap: 48px; align-items: end; margin-top: 50px; }
+    .lead { margin: 0; max-width: 700px; color: #456799; font-size: clamp(18px, 2.1vw, 25px); line-height: 1.55; letter-spacing: -.02em; }
+    .hero-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .meta-card { padding: 20px; border: 1px solid var(--line); border-radius: 20px; background: rgba(255,255,255,.66); backdrop-filter: blur(10px); box-shadow: 0 14px 34px rgba(39, 91, 170, .08); }
+    .meta-card span { display: block; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .12em; }
+    .meta-card strong { display: block; margin-top: 8px; font-size: 16px; line-height: 1.3; }
+
+    .marquee { overflow: hidden; border-block: 1px solid var(--line); background: rgba(255,255,255,.48); }
+    .marquee-track { width: max-content; display: flex; gap: 34px; align-items: center; padding: 18px 0; animation: drift 28s linear infinite; }
+    .marquee-item { display: inline-flex; align-items: center; gap: 34px; color: #5170a3; font-size: 13px; font-weight: 720; letter-spacing: .11em; text-transform: uppercase; white-space: nowrap; }
+    .marquee-item::after { content: "✦"; color: var(--mint); }
+    @keyframes drift { to { transform: translateX(-50%); } }
+
+    section { padding: 112px 0; }
+    .section-head { display: grid; grid-template-columns: .7fr 1.3fr; gap: 56px; align-items: start; margin-bottom: 52px; }
+    .kicker { margin: 7px 0 0; color: var(--mint); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+    h2 { margin: 0; font-size: clamp(38px, 5vw, 66px); line-height: 1.02; letter-spacing: -.052em; }
+    .section-intro { margin: 24px 0 0; max-width: 680px; color: var(--muted); font-size: 18px; line-height: 1.65; }
+
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .skill-card {
+      position: relative; min-height: 330px; padding: 30px; overflow: hidden;
+      border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface);
+      box-shadow: 0 0 0 rgba(0,0,0,0); backdrop-filter: blur(18px);
+      transition: transform .35s cubic-bezier(.2,.8,.2,1), border-color .35s ease, box-shadow .35s ease;
+    }
+    .skill-card::before { content: ""; position: absolute; inset: auto -20% -45% auto; width: 210px; height: 210px; border-radius: 50%; background: var(--card-glow, var(--violet)); opacity: .10; filter: blur(12px); transition: transform .4s ease, opacity .4s ease; }
+    .skill-card:hover { transform: translateY(-10px); border-color: rgba(168,121,255,.46); box-shadow: var(--shadow); }
+    .skill-card:hover::before { transform: scale(1.35); opacity: .18; }
+    .skill-no { display: inline-grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 15px; color: var(--card-glow, var(--violet)); font-weight: 800; }
+    .skill-card h3 { margin: 68px 0 15px; font-size: 25px; line-height: 1.15; letter-spacing: -.035em; }
+    .skill-card p { margin: 0; color: var(--muted); line-height: 1.65; }
+
+    .cases { background: linear-gradient(180deg, transparent, rgba(65, 105, 210, .075), transparent); }
+    .case-list { display: grid; gap: 18px; }
+    .case-card {
+      display: grid; grid-template-columns: 84px 1fr 240px; gap: 28px; align-items: center;
+      padding: 32px; border: 1px solid var(--line); border-radius: 26px; background: rgba(255, 255, 255, .78); box-shadow: 0 18px 45px rgba(42, 92, 168, .07);
+      transition: background .3s ease, border-color .3s ease, transform .3s ease;
+    }
+    .case-card:hover { transform: translateX(8px); border-color: rgba(0,167,160,.38); background: #fff; }
+    .case-index { color: transparent; -webkit-text-stroke: 1px rgba(23,104,216,.46); font-size: 52px; font-weight: 800; letter-spacing: -.08em; }
+    .case-card h3 { margin: 0 0 10px; font-size: 23px; letter-spacing: -.03em; }
+    .case-card p { margin: 0; color: var(--muted); line-height: 1.55; }
+    .case-tags { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .mini-tag { padding: 8px 11px; border: 1px solid var(--line); border-radius: 999px; color: #315d9e; font-size: 12px; background: rgba(30,104,216,.05); }
+
+    .toolbox { display: grid; grid-template-columns: .95fr 1.05fr; gap: 60px; align-items: center; }
+    .tags { display: flex; flex-wrap: wrap; gap: 12px; }
+    .tag {
+      --tag-color: var(--violet);
+      padding: 14px 18px; border: 1px solid color-mix(in srgb, var(--tag-color) 34%, transparent); border-radius: 999px;
+      background: color-mix(in srgb, var(--tag-color) 9%, transparent); color: #174b98; font-size: 14px; font-weight: 650;
+      transition: transform .2s ease, background .2s ease;
+    }
+    .tag:hover { transform: translateY(-3px) rotate(-1deg); background: color-mix(in srgb, var(--tag-color) 17%, transparent); }
+
+    .result-card {
+      position: relative; overflow: hidden; padding: clamp(34px, 6vw, 72px); border: 1px solid rgba(255,255,255,.15); border-radius: 34px;
+      background: linear-gradient(135deg, rgba(89,116,232,.17), rgba(23,104,216,.07) 46%, rgba(0,167,160,.13)); box-shadow: var(--shadow);
+    }
+    .result-card::after { content: ""; position: absolute; width: 320px; height: 320px; right: -120px; top: -150px; border-radius: 50%; border: 1px solid rgba(23,104,216,.17); box-shadow: 0 0 0 38px rgba(23,104,216,.035), 0 0 0 76px rgba(23,104,216,.02); }
+    .result-card h2 { max-width: 860px; }
+    .result-card p { max-width: 700px; margin: 24px 0 0; color: #4c6d9f; font-size: 18px; line-height: 1.65; }
+    .copy-button {
+      position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 10px; margin-top: 34px; padding: 14px 18px;
+      border: 0; border-radius: 14px; color: #fff; font-weight: 780; background: var(--blue); cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .copy-button:hover { transform: translateY(-3px); box-shadow: 0 12px 30px rgba(88,232,194,.24); }
+
+    footer { padding: 28px 0 48px; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; align-items: center; padding-top: 28px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    .footer-dot { display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 14px var(--mint); }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 900px) {
+      .hero { padding-top: 70px; }
+      .hero-bottom, .section-head, .toolbox { grid-template-columns: 1fr; gap: 32px; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .skill-card:last-child { grid-column: 1 / -1; min-height: 270px; }
+      .case-card { grid-template-columns: 60px 1fr; }
+      .case-tags { grid-column: 2; justify-content: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .container { width: min(calc(100% - 28px), var(--max)); }
+      .nav-inner { min-height: 66px; }
+      .nav-links a:not(:last-child) { display: none; }
+      .nav-links { gap: 0; }
+      .hero { padding: 54px 0 62px; }
+      h1 { font-size: clamp(50px, 17vw, 78px); }
+      .hero-bottom { margin-top: 34px; }
+      .hero-meta, .skills-grid { grid-template-columns: 1fr; }
+      section { padding: 78px 0; }
+      .skill-card, .skill-card:last-child { grid-column: auto; min-height: 285px; }
+      .case-card { grid-template-columns: 1fr; gap: 16px; padding: 24px; }
+      .case-index { font-size: 38px; }
+      .case-tags { grid-column: auto; }
+      .result-card { border-radius: 26px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav" aria-label="Основная навигация">
+    <div class="container nav-inner">
+      <a class="brand" href="#top" aria-label="Олеся Иванова — наверх">
+        <span class="brand-mark">ОИ</span>
+        <span>Олеся Иванова</span>
+      </a>
+      <div class="nav-links">
+        <a href="#skills">Навыки</a>
+        <a href="#cases">Кейсы</a>
+        <a href="#result">Результат →</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="container">
+        <div class="eyebrow">Портфолио AI‑навыков</div>
+        <h1>Идеи в <span class="gradient-text">точные промты.</span></h1>
+        <div class="hero-bottom">
+          <p class="lead">Превращаю сырые запросы в понятные рабочие инструкции для ИИ — с логикой, нужным тоном и предсказуемым форматом результата.</p>
+          <div class="hero-meta" aria-label="Краткая информация">
+            <div class="meta-card"><span>Роль</span><strong>Специалист по ИИ</strong></div>
+            <div class="meta-card"><span>Фокус</span><strong>Текст и промты</strong></div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span class="marquee-item">Структура</span><span class="marquee-item">Точность</span><span class="marquee-item">Контекст</span><span class="marquee-item">Тон</span><span class="marquee-item">Формат</span><span class="marquee-item">Шаблоны</span>
+        <span class="marquee-item">Структура</span><span class="marquee-item">Точность</span><span class="marquee-item">Контекст</span><span class="marquee-item">Тон</span><span class="marquee-item">Формат</span><span class="marquee-item">Шаблоны</span>
+      </div>
+    </div>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">01 / Что умею</p>
+          <div><h2>От запроса к управляемому результату</h2><p class="section-intro">Выстраиваю промт как систему: определяю задачу, задаю контекст, фиксирую критерии качества и описываю формат ответа.</p></div>
+        </div>
+        <div class="skills-grid">
+          <article class="skill-card reveal" style="--card-glow: var(--violet)"><span class="skill-no">01</span><h3>Проектирование промтов</h3><p>Составляю чёткие, структурированные инструкции, которые помогают модели понять задачу с первого раза.</p></article>
+          <article class="skill-card reveal" style="--card-glow: var(--blue)"><span class="skill-no">02</span><h3>Редактура запросов</h3><p>Перерабатываю сырые формулировки: убираю двусмысленность, добавляю ограничения, критерии и контекст.</p></article>
+          <article class="skill-card reveal" style="--card-glow: var(--mint)"><span class="skill-no">03</span><h3>Адаптация стиля</h3><p>Настраиваю тон, лексику и структуру текста под конкретную аудиторию — от деловой до экспертной.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cases" id="cases">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="kicker">02 / Из практики</p>
+          <div><h2>Кейсы, где важна точность</h2><p class="section-intro">Три разных сценария — единый подход: ясные входные данные, понятная логика и заранее заданный вид результата.</p></div>
+        </div>
+        <div class="case-list">
+          <article class="case-card reveal"><div class="case-index">01</div><div><h3>Анализ противоречий в прогнозах</h3><p>Промт сопоставляет прогноз роста доходности и рекомендацию не покупать длинные ОФЗ: фиксирует входные данные, метрики оценки и формат аргументированного вывода.</p></div><div class="case-tags"><span class="mini-tag">Аналитика</span><span class="mini-tag">Метрики</span><span class="mini-tag">Финансы</span></div></article>
+          <article class="case-card reveal"><div class="case-index">02</div><div><h3>Подбор семейных саг</h3><p>Рекомендации строятся по масштабу истории, динамике и историческому фону — с ограничением объёма и единым форматом описания каждой книги.</p></div><div class="case-tags"><span class="mini-tag">Рекомендации</span><span class="mini-tag">Критерии</span><span class="mini-tag">Книги</span></div></article>
+          <article class="case-card reveal"><div class="case-index">03</div><div><h3>Деловые тексты</h3><p>Жалобы, письма и описания вакансий получают ясную структуру, подходящий тон и обязательные смысловые блоки.</p></div><div class="case-tags"><span class="mini-tag">Копирайтинг</span><span class="mini-tag">Tone of voice</span><span class="mini-tag">Шаблоны</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container toolbox">
+        <div class="reveal"><p class="kicker">03 / Инструментарий</p><h2>Компоненты сильного промта</h2><p class="section-intro">Собираю нужную комбинацию под задачу — без перегрузки лишними инструкциями.</p></div>
+        <div class="tags reveal" aria-label="Инструменты и методы">
+          <span class="tag" style="--tag-color: var(--violet)">Роль модели</span><span class="tag" style="--tag-color: var(--mint)">Контекст</span><span class="tag" style="--tag-color: var(--blue)">Входные данные</span><span class="tag" style="--tag-color: var(--coral)">Ограничения</span><span class="tag" style="--tag-color: var(--mint)">Критерии качества</span><span class="tag" style="--tag-color: var(--violet)">Формат вывода</span><span class="tag" style="--tag-color: var(--blue)">Примеры</span><span class="tag" style="--tag-color: var(--coral)">Tone of voice</span><span class="tag" style="--tag-color: var(--violet)">Итерации</span><span class="tag" style="--tag-color: var(--mint)">Проверка логики</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="result">
+      <div class="container">
+        <div class="result-card reveal">
+          <p class="kicker">Финальный результат</p>
+          <h2>Готовые шаблоны, которые можно сразу использовать</h2>
+          <p>Каждый промт оформлен так, чтобы его было легко скопировать, подставить свои данные и получить структурированный ответ без долгих уточнений.</p>
+          <button class="copy-button" type="button" data-copy="Имя: Олеся Иванова — специалист по работе с ИИ. Навыки: проектирование промтов, редактура запросов, адаптация текста под целевую аудиторию."><span aria-hidden="true">⎘</span><span class="copy-label">Скопировать описание</span></button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="container footer-inner"><span><i class="footer-dot"></i>Открыта к задачам с текстом и ИИ</span><span>Олеся Иванова · AI‑портфолио</span></div></footer>
+
+  <script>
+    const nav = document.querySelector('.nav');
+    const revealItems = document.querySelectorAll('.reveal');
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 20), { passive: true });
+
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: .14 });
+      revealItems.forEach((item) => observer.observe(item));
+    } else {
+      revealItems.forEach((item) => item.classList.add('visible'));
+    }
+
+    document.querySelector('.copy-button').addEventListener('click', async (event) => {
+      const button = event.currentTarget;
+      const label = button.querySelector('.copy-label');
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        label.textContent = 'Скопировано';
+      } catch {
+        label.textContent = 'Выделите текст выше';
+      }
+      setTimeout(() => { label.textContent = 'Скопировать описание'; }, 1800);
+    });
+  </script>
+</body>
+</html>
